@@ -1,0 +1,32 @@
+create database if not exists christmas_wishes;
+
+use christmas_wishes;
+
+drop table if exists wish_list;
+drop table if exists possible_wishes;
+drop table if exists children;
+
+create table children (
+	child_id int(11) not null auto_increment,
+	first_name varchar(20) not null,
+	last_name varchar(20) not null,
+	on_nice_list bool not null,
+	primary key(child_id)
+);
+
+create table possible_wishes (
+	wish_id int(11) not null auto_increment,
+	wish varchar(25) not null,
+	description varchar(100),
+	primary key (wish_id)
+);
+
+create table wish_list (
+	wish_entry int(11) not null auto_increment,
+	child_id int(11) not null,
+	wish_id int(11) not null,
+	primary key(wish_entry),
+	foreign key(child_id) references children(child_id),
+	foreign key(wish_id) references possible_wishes(wish_id)
+);
+	
